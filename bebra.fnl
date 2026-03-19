@@ -26,7 +26,7 @@
 (print "LUA: Window started. Caching texture...")
 
 (local rad 32)
-(local circleTexture (rl.LoadRenderTexture rad*2 rad*2))
+(local circleTexture (rl.LoadRenderTexture (* rad 2) (* rad 2)))
 
 (rl.BeginTextureMode circleTexture)
 (rl.DrawCircle rad rad rad CL_RED)
@@ -35,7 +35,7 @@
 
 (print "LUA: Cache done. Starting mainloop...")
 
-(while (not (rl.WindowShoudClose))
+(while (not (rl.WindowShouldClose))
   (set sx (rl.GetRenderWidth))
   (set sy (rl.GetRenderHeight))
   (set time (+ time (rl.GetFrameTime)))
@@ -43,7 +43,8 @@
   (rl.ClearBackground CL_WHITE)
   (rl.DrawTexture circleTexture.texture
     (+ (* (math.sin time) (/ sx 2)) (/ sx 2) (- rad))
-    (+ (* (math.sin time) (/ sy 2)) (/ sy 2) (- rad)))
+    (+ (* (math.cos time) (/ sy 2)) (/ sy 2) (- rad))
+    CL_WHITE)
   (rl.DrawFPS 0 0)
   (rl.EndDrawing))
 
